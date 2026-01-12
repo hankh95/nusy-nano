@@ -1,0 +1,94 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "nusy-nano"
+version = "0.1.0"
+description = "A tiny framework for human-readable knowledge graphs with hybrid search"
+readme = "README.md"
+license = {text = "MIT"}
+authors = [
+    {name = "hankh95", email = "hankh95@users.noreply.github.com"}
+]
+keywords = [
+    "knowledge-graph",
+    "semantic-search",
+    "rdf",
+    "sparql",
+    "markdown",
+    "yurtle",
+    "txtai",
+    "rag",
+    "llm"
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Database :: Database Engines/Servers",
+    "Topic :: Text Processing :: Markup",
+]
+requires-python = ">=3.9"
+dependencies = [
+    "yurtle-rdflib>=0.1.0",
+    "txtai[pipeline]>=7.0.0",
+    "rdflib>=7.0.0",
+]
+
+[project.optional-dependencies]
+anthropic = ["anthropic>=0.40.0"]
+openai = ["openai>=1.0.0"]
+all = [
+    "anthropic>=0.40.0",
+    "openai>=1.0.0",
+]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-cov>=4.0.0",
+    "black>=23.0.0",
+    "ruff>=0.1.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/hankh95/nusy-nano"
+Documentation = "https://github.com/hankh95/nusy-nano#readme"
+Repository = "https://github.com/hankh95/nusy-nano"
+Issues = "https://github.com/hankh95/nusy-nano/issues"
+
+[project.scripts]
+nusy = "nusy_nano.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/nusy_nano"]
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "/src",
+    "/tests",
+    "/examples",
+]
+
+[tool.black]
+line-length = 88
+target-version = ["py39", "py310", "py311", "py312"]
+
+[tool.ruff]
+line-length = 88
+target-version = "py39"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "W"]
+ignore = ["E501"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
